@@ -1,0 +1,37 @@
+varnishtest "Unset Cookie Test"
+
+# Define and start a www backend
+
+server s1 {
+  rxreq
+  txresp
+  expect req.http.Cookie == <undef>
+} -start
+
+# Create and start varnish instance with VCL below
+
+varnish v1 -vcl {
+
+  import ${vmod_std};
+  import ${vmod_directors};
+
+  backend b1 {
+    .host = "${s1_addr}";
+    .port = "${s1_port}";
+  }
+
+  include "/vcl/src/subroutines.vcl";
+
+} -start
+
+# Define and run sequence of client requests
+
+client c1 {
+  txreq -url "/" -hdr "Host: staging.rackspace.com"
+  rxresp
+} -run
+
+# For backup purposes, assert the counters
+# to assure things are happening as expected
+
+varnish v1 -expect client_req == 1
