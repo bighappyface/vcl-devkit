@@ -27,7 +27,7 @@ varnish v1 -vcl {
 # Define and run sequence of client requests
 
 client c1 {
-  txreq -url "/" -hdr "Host: staging.rackspace.com"
+  txreq -url "/" -hdr "Cookie: foo=bar"
   rxresp
 } -run
 

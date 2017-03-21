@@ -2,7 +2,7 @@
 
 This project is a simple development kit for Varnish VCL.
 
-Features:
+**Features:**
 
 * Task automation with `make`
 * `varnishtest` support out of the box
@@ -13,18 +13,20 @@ Features:
 
 Run `make build`
 
-## development
+## Development
 
-*Linting*
+**Linting**
 
 Run `make lint`
 
-*Testing*
+**Testing**
 
-Run `make test`
+Single tests - run `make TEST=<filename>.vtc testsingle`
+
+All tests - run `make testall`
 
 ## Docker concerns
 
-*Clearing the `vcl-devkit` image*
+**Clearing the `vcl-devkit` image**
 
 Run `make clean`
